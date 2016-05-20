@@ -145,3 +145,45 @@ def filter_convolve(data, filters, filter_rot=False):
     else:
         return np.array([convolve_fft(data, f, boundary='wrap', crop=True)
                         for f in filters])
+
+
+##
+#  Function that calls mr_filter to perform a wavelet filtering on the
+#  input data.
+#
+#  @param[in] data: 2D Input array.
+#  @param[in] opt: List of additonal mr_transform options.
+#  @param[in] path: Path for output files.
+#  @param[in] remove_files: Option to remove output files.
+#
+#  @return Results of wavelet transform (and mr file name).
+#
+def call_mr_filter(data, opt=None, path='./', remove_files=True):
+
+    # Create a unique string using the current date and time.
+    unique_string = datetime.now().strftime('%Y.%m.%d_%H.%M.%S')
+
+    # Set the ouput file names.
+    file_name = path + 'mr_temp_' + unique_string
+    file_fits = file_name + '.fits'
+    file_mr = file_name + '.mr'
+
+    # Write the input data to a fits file.
+    fits.writeto(file_fits, data)
+
+    # Call mr_transform.
+    if isinstance(opt, type(None)):
+        check_call(['mr_filter', file_fits, file_mr])
+    else:
+        check_call(['mr_filter'] + opt + [file_fits, file_mr])
+
+    # Retrieve wavelet filtered data.
+    result = fits.getdata(file_mr)
+
+    # Return the mr_transform results (and the output file names).
+    if remove_files:
+        remove(file_fits)
+        remove(file_mr)
+        return result
+    else:
+        return result, file_mr
