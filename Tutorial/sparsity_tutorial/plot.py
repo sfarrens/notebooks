@@ -2,8 +2,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-def stem_plot(data, x_vals=None, title=None, imag=True, ylim=None, line=False,
-              f=None):
+def stem_plot(data, x_vals=None, title=None, imag=True, ylim=None, xlab=None,
+              ylab=None, line=False, f=None):
 
     if x_vals is None:
         x_vals = np.arange(data.size)
@@ -31,8 +31,18 @@ def stem_plot(data, x_vals=None, title=None, imag=True, ylim=None, line=False,
         plt.setp(baseline, linestyle="--", color="grey", linewidth=2)
         plt.legend(loc=1)
 
-    # plt.xlim(0, data.size)
     plt.ylim(ylim)
+    plt.xlabel(xlab, fontsize=18)
+    plt.ylabel(ylab, fontsize=18)
+    if not isinstance(title, type(None)):
+        plt.title(title, fontsize=20)
+    plt.show()
+
+
+def line_plot(data, title=None):
+
+    plt.plot(data, color='#F76F66')
+    plt.plot(np.zeros(data.size), linestyle="--", color="grey")
     if not isinstance(title, type(None)):
         plt.title(title, fontsize=20)
     plt.show()
