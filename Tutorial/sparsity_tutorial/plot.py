@@ -39,12 +39,13 @@ def stem_plot(data, x_vals=None, title=None, imag=True, ylim=None, xlab=None,
     plt.show()
 
 
-def line_plot(data, title=None):
+def line_plot(data, title=None, ylim=None):
 
     plt.plot(data, color='#F76F66')
     plt.plot(np.zeros(data.size), linestyle="--", color="grey")
     if not isinstance(title, type(None)):
         plt.title(title, fontsize=20)
+    plt.ylim(ylim)
     plt.show()
 
 
@@ -57,12 +58,12 @@ def cost_plot(data):
     plt.show()
 
 
-def display(data, title='example', shape=None, cmap='gist_stern'):
+def display(data, title='example', shape=None, cmap='gist_stern', vmax=None):
 
     if not isinstance(shape, type(None)):
         data = data.reshape(shape)
 
-    plt.imshow(np.abs(data), cmap=cmap)
+    cax = plt.imshow(np.abs(data), cmap=cmap, vmin=0.0, vmax=vmax)
     plt.title(title, fontsize=20)
-    plt.colorbar()
+    plt.colorbar(cax)
     plt.show()
