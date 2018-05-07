@@ -32,8 +32,10 @@ def stem_plot(data, x_vals=None, title=None, imag=True, ylim=None, xlab=None,
         plt.legend(loc=1)
 
     plt.ylim(ylim)
-    plt.xlabel(xlab, fontsize=18)
-    plt.ylabel(ylab, fontsize=18)
+    if not isinstance(xlab, type(None)):
+        plt.xlabel(xlab, fontsize=18)
+    if not isinstance(ylab, type(None)):
+        plt.ylabel(ylab, fontsize=18)
     if not isinstance(title, type(None)):
         plt.title(title, fontsize=20)
     plt.show()
@@ -58,12 +60,13 @@ def cost_plot(data):
     plt.show()
 
 
-def display(data, title='example', shape=None, cmap='gist_stern', vmax=None):
+def display(data, title='example', shape=None, cmap='gist_stern', vmax=None,
+            vmin=None):
 
     if not isinstance(shape, type(None)):
         data = data.reshape(shape)
 
-    cax = plt.imshow(np.abs(data), cmap=cmap, vmin=0.0, vmax=vmax)
+    cax = plt.imshow(np.abs(data), cmap=cmap, vmin=vmin, vmax=vmax)
     plt.title(title, fontsize=20)
     plt.colorbar(cax)
     plt.show()
