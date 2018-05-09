@@ -2,6 +2,30 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
+def regression_plot(x1, y1, x2, y2):
+
+    plt.plot(x1, y1, 'o', color="#19C3F5", label='Data')
+    plt.plot(x2, y2, '--', color='#FF4F5B', label='Model')
+    plt.title('Best Fit Line', fontsize=20)
+    plt.xlabel('x', fontsize=18)
+    plt.ylabel('y', fontsize=18)
+    plt.legend()
+    plt.show()
+
+
+def grad_plot(x, y1, y2, dy, point):
+
+    plt.plot(x, y1, 'b-', label='$||x||_2$')
+    plt.plot(x, y2, 'g-', label='$||x||_2^2$')
+    plt.plot(x[point], y2[point], 'ro')
+    plt.plot(x, dy, 'r--', label='Grad $||x_i||_2^2$')
+    plt.ylim(-0.1, 1.0)
+    plt.title('Convex L2-Norm')
+    plt.xlabel('$x$', fontsize=24)
+    plt.legend(loc='upper center', fontsize=20)
+    plt.show()
+
+
 def stem_plot(data, x_vals=None, title=None, imag=True, ylim=None, xlab=None,
               ylab=None, line=False, f=None):
 
