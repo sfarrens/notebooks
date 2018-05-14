@@ -94,3 +94,99 @@ def display(data, title='example', shape=None, cmap='gist_stern', vmax=None,
     plt.title(title, fontsize=20)
     plt.colorbar(cax)
     plt.show()
+
+
+def wave_plot(n, signal, signal_fft):
+
+    max_n = max(n)
+    lines = [i * max_n / 4 for i in range(1, 4)]
+    labels = [i * max_n / 8 for i in np.arange(1, 8)[::2]]
+
+    ax1 = plt.subplot(211)
+    ax1.plot(n, signal, '-', color='#0764DB')
+    ax1.plot([lines[0], lines[0]], [-1, 1], 'r--')
+    ax1.plot([lines[1], lines[1]], [-1, 1], 'r--')
+    ax1.plot([lines[2], lines[2]], [-1, 1], 'r--')
+    ax1.set_xticks([])
+    ax1.set_yticks([])
+    plt.text(labels[0], 0.8, 'A', color='#FF4F5B')
+    plt.text(labels[1], 0.8, 'B', color='#FF4F5B')
+    plt.text(labels[2], 0.8, 'C', color='#FF4F5B')
+    plt.text(labels[3], 0.8, 'D', color='#FF4F5B')
+    ax1.set_xlabel('Time', fontsize=18)
+    ax2 = plt.subplot(212)
+    ax2.plot(n, np.real(signal_fft), '-', color='#0764DB')
+    ax2.set_xlabel('Frequency', fontsize=18)
+    ax2.set_xticks([])
+    ax2.set_yticks([])
+    plt.show()
+
+
+def wave_plot2(t_slices, x_slices, x_sparse_slices):
+
+    titles = ('A', 'B', 'C', 'D')
+
+    for i in range(len(t_slices)):
+        ax1 = plt.subplot(2, 4, i + 1)
+        ax1.plot(t_slices[i], x_slices[i], '-', color='#0764DB')
+        ax1.set_ylim(-1, 1)
+        ax1.set_xlabel('Time')
+        ax1.set_title(titles[i])
+        ax2 = plt.subplot(2, 4, i + 5)
+        ax2.plot(t_slices[i], x_sparse_slices[i], '-', color='#0764DB')
+        ax2.set_xlabel('Frequency')
+    plt.tight_layout()
+    plt.show()
+
+
+def filter_plot(n, Fn, g, Fg, Fg_fft):
+
+    fig, ax = plt.subplots(4, 1)
+    ax[0].plot(n, Fn, '-', color='#0764DB')
+    ax[0].set_title('$F[n]$', fontsize=24)
+    ax[1].plot(n, g, '-', color='#0764DB')
+    ax[1].set_title('$g[n-m]$', fontsize=24)
+    ax[2].plot(n, Fg, '-', color='#0764DB')
+    ax[2].set_title('$F \cdot g$', fontsize=24)
+    ax[3].plot(n, Fg_fft, '-', color='#0764DB')
+    ax[3].set_title('$\mathcal{F}(F \cdot g)$', fontsize=24)
+    for ax_i in ax:
+        ax_i.set_xticks([])
+        ax_i.set_yticks([])
+    plt.tight_layout()
+    plt.show()
+
+
+def tf_plot(w):
+
+    fig, ax = plt.subplots(1, 1)
+    ax.imshow(w, aspect='auto', interpolation='nearest',
+              cmap='magma')
+    ax.set_xlabel('Time', fontsize=18)
+    ax.set_ylabel('Frequency', fontsize=18)
+    ax.set_xticks([])
+    ax.set_yticks([])
+    plt.show()
+
+
+def wavelet_plot(n, Fn, haar, mex):
+
+    fig, ax = plt.subplots(1, 1)
+    ax.plot(n, Fn, '-', color='#0764DB', label=r'$F[n]$')
+    ax.plot(n, haar, 'r--', label=r'$\psi_{Haar}[n]$')
+    ax.plot(n, mex, 'm-.', label=r'$\psi_{Ricker}(t)$')
+    ax.set_xticks([])
+    ax.set_yticks([])
+    plt.legend(fontsize=16)
+    plt.show()
+
+
+def cwt_plot(y):
+
+    fig, ax = plt.subplots(1, 1)
+    ax.imshow(y, aspect='auto', interpolation='nearest', cmap='magma')
+    ax.set_xlabel('$b$', fontsize=24)
+    ax.set_ylabel('$a$', fontsize=24)
+    ax.set_xticks([])
+    ax.set_yticks([])
+    plt.show()
