@@ -190,3 +190,20 @@ def cwt_plot(y):
     ax.set_xticks([])
     ax.set_yticks([])
     plt.show()
+
+
+def starlet_display(data):
+
+    cmap = 'magma'
+
+    fig, ax = plt.subplots(2, 2)
+    ax[0, 0].imshow(data[0], cmap=cmap)
+    ax[0, 0].set_title('Wavelet Scale 1', fontsize=20)
+    ax[0, 1].imshow(data[1], cmap=cmap)
+    ax[0, 1].set_title('Wavelet Scale 2', fontsize=20)
+    ax[1, 0].imshow(data[2], cmap=cmap)
+    ax[1, 0].set_title('Wavelet Scale 3', fontsize=20)
+    ax[1, 1].imshow(data[3], cmap=cmap)
+    ax[1, 1].set_title('Coarse Scale', fontsize=20)
+    plt.tight_layout()
+    plt.show()
