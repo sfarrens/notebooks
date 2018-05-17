@@ -65,13 +65,14 @@ def stem_plot(data, x_vals=None, title=None, imag=True, ylim=None, xlab=None,
     plt.show()
 
 
-def line_plot(data, title=None, ylim=None):
+def line_plot(data, title=None, ylim=None, xlab=None):
 
     plt.plot(data, color='#F76F66')
     plt.plot(np.zeros(data.size), linestyle="--", color="grey")
     if not isinstance(title, type(None)):
         plt.title(title, fontsize=20)
     plt.ylim(ylim)
+    plt.xlabel(xlab, fontsize=18)
     plt.show()
 
 
